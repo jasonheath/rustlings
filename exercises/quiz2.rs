@@ -47,6 +47,14 @@ mod my_module {
         s
     }
 
+    fn repeat_take_version( bound: &usize, string: &String ) -> String { 
+        let mut s = string.to_string();
+        for bar in std::iter::repeat("bar").take(*bound) {
+            s.push_str( bar );
+        }
+        s
+    }
+
     pub fn transformer(input: Vec<(String,Command)>) -> Vec<String> {
         let mut output: Vec<String> = vec![];
         for (string, command) in input.iter() {
@@ -55,7 +63,8 @@ mod my_module {
                 Command::Trim => output.push( string.trim().to_string() ),
                 Command::Append(count) => {
                     //output.push( while_loop_version( count, string ) );
-                    output.push( iterated_range_version( count, string ) );
+                    //output.push( iterated_range_version( count, string ) );
+                    output.push( repeat_take_version( count, string ) );
                 },
             } 
         }
